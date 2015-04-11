@@ -50,6 +50,11 @@ public class DataBaseInitializer
 		adminUser.addRole("admin");
 		this.userDao.save(adminUser);
 
+        User adminUser2 = new User("muksia", this.passwordEncoder.encode("muksia"));
+        adminUser2.addRole("user");
+        adminUser2.addRole("admin");
+        this.userDao.save(adminUser2);
+
 		long timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 24;
 		for (int i = 0; i < 10; i++) {
 			NewsEntry newsEntry = new NewsEntry();
