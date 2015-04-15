@@ -13,11 +13,6 @@ import net.dontdrinkandroot.example.angularrestspringsecurity.entity.NewsEntry;
 import org.springframework.transaction.annotation.Transactional;
 
 
-/**
- * JPA Implementation of a {@link NewsEntryDao}.
- * 
- * @author Philip W. Sorst <philip@sorst.net>
- */
 public class JpaNewsEntryDao extends JpaDao<NewsEntry, Long> implements NewsEntryDao
 {
 

@@ -1,9 +1,13 @@
 package net.dontdrinkandroot.example.angularrestspringsecurity.dao;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import net.dontdrinkandroot.example.angularrestspringsecurity.dao.newscategory.NewsCategoryDao;
 import net.dontdrinkandroot.example.angularrestspringsecurity.dao.newsentry.NewsEntryDao;
 import net.dontdrinkandroot.example.angularrestspringsecurity.dao.user.UserDao;
+import net.dontdrinkandroot.example.angularrestspringsecurity.entity.NewsCategory;
 import net.dontdrinkandroot.example.angularrestspringsecurity.entity.NewsEntry;
 import net.dontdrinkandroot.example.angularrestspringsecurity.entity.User;
 
@@ -19,10 +23,11 @@ public class DataBaseInitializer
 {
 
 	private NewsEntryDao newsEntryDao;
-
 	private UserDao userDao;
+	private NewsCategoryDao newsCategoryDao;
 
 	private PasswordEncoder passwordEncoder;
+
 
 
 	protected DataBaseInitializer()
@@ -31,10 +36,11 @@ public class DataBaseInitializer
 	}
 
 
-	public DataBaseInitializer(UserDao userDao, NewsEntryDao newsEntryDao, PasswordEncoder passwordEncoder)
+	public DataBaseInitializer(UserDao userDao, NewsEntryDao newsEntryDao, NewsCategoryDao newsCategoryDao, PasswordEncoder passwordEncoder)
 	{
 		this.userDao = userDao;
 		this.newsEntryDao = newsEntryDao;
+		this.newsCategoryDao = newsCategoryDao;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -55,12 +61,19 @@ public class DataBaseInitializer
         adminUser2.addRole("admin");
         this.userDao.save(adminUser2);
 
+		NewsCategory newsCategory = new NewsCategory();
+		newsCategory.setName("Category Name");
+		this.newsCategoryDao.save(newsCategory);
+
+		Set<NewsCategory> newsCategories = new HashSet<NewsCategory>();
+		newsCategories.add(newsCategory);
 		long timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 24;
 		for (int i = 0; i < 10; i++) {
 			NewsEntry newsEntry = new NewsEntry();
 			newsEntry.setContent("This is example content " + i);
 			newsEntry.setDate(new Date(timestamp));
 			newsEntry.setTitle("Some title");
+			newsEntry.setCategories(newsCategories);
 			this.newsEntryDao.save(newsEntry);
 			timestamp += 1000 * 60 * 60;
 		}

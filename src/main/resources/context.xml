@@ -48,10 +48,14 @@
 	
 	<bean id="userDao" class="net.dontdrinkandroot.example.angularrestspringsecurity.dao.user.JpaUserDao">
 	</bean>
+
+	<bean id="newsCategoryDao" class="net.dontdrinkandroot.example.angularrestspringsecurity.dao.newscategory.JpaNewsCategoryDao">
+	</bean>
 	
 	<bean id="dataBaseInitializer" class="net.dontdrinkandroot.example.angularrestspringsecurity.dao.DataBaseInitializer" init-method="initDataBase">
 		<constructor-arg ref="userDao" />
 		<constructor-arg ref="newsEntryDao" />
+		<constructor-arg ref="newsCategoryDao" />
 		<constructor-arg ref="passwordEncoder" />
 	</bean>
 

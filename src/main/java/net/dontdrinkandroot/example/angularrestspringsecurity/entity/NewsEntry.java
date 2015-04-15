@@ -1,21 +1,25 @@
 package net.dontdrinkandroot.example.angularrestspringsecurity.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import net.dontdrinkandroot.example.angularrestspringsecurity.JsonViews;
 
 import org.codehaus.jackson.map.annotate.JsonView;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.context.annotation.Lazy;
 
 
-/**
- * JPA Annotated Pojo that represents a news entry.
- * 
- * @author Philip W. Sorst <philip@sorst.net>
- */
 @javax.persistence.Entity
 public class NewsEntry implements Entity
 {
@@ -32,6 +36,10 @@ public class NewsEntry implements Entity
 
 	@Column
 	private String title;
+
+	@ManyToMany(targetEntity = NewsCategory.class, fetch = FetchType.LAZY)
+	@Cascade(CascadeType.ALL)
+	private Set<NewsCategory> categories;
 
 
 	public NewsEntry()
@@ -79,6 +87,15 @@ public class NewsEntry implements Entity
 
 	public void setTitle(final String title) {
 		this.title = title;
+	}
+
+	public Set<NewsCategory> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(
+			final Set<NewsCategory> categories) {
+		this.categories = categories;
 	}
 
 	@Override

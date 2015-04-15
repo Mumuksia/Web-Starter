@@ -7,5 +7,6 @@
 	<persistence-unit name="examplePU">
 		<class>net.dontdrinkandroot.example.angularrestspringsecurity.entity.NewsEntry</class>
 		<class>net.dontdrinkandroot.example.angularrestspringsecurity.entity.User</class>
+		<class>net.dontdrinkandroot.example.angularrestspringsecurity.entity.NewsCategory</class>
 	</persistence-unit>
 </persistence>
