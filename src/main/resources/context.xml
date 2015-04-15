@@ -43,16 +43,16 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 	
-	<bean id="newsEntryDao" class="net.dontdrinkandroot.example.angularrestspringsecurity.dao.newsentry.JpaNewsEntryDao">
+	<bean id="newsEntryDao" class="com.dao.newsentry.JpaNewsEntryDao">
 	</bean>
 	
-	<bean id="userDao" class="net.dontdrinkandroot.example.angularrestspringsecurity.dao.user.JpaUserDao">
+	<bean id="userDao" class="com.dao.user.JpaUserDao">
 	</bean>
 
-	<bean id="newsCategoryDao" class="net.dontdrinkandroot.example.angularrestspringsecurity.dao.newscategory.JpaNewsCategoryDao">
+	<bean id="newsCategoryDao" class="com.dao.newscategory.JpaNewsCategoryDao">
 	</bean>
 	
-	<bean id="dataBaseInitializer" class="net.dontdrinkandroot.example.angularrestspringsecurity.dao.DataBaseInitializer" init-method="initDataBase">
+	<bean id="dataBaseInitializer" class="com.dao.DataBaseInitializer" init-method="initDataBase">
 		<constructor-arg ref="userDao" />
 		<constructor-arg ref="newsEntryDao" />
 		<constructor-arg ref="newsCategoryDao" />
@@ -65,7 +65,7 @@
 		INIT REST COMPONENTS 
 	 -->
 	
-	<context:component-scan base-package="net.dontdrinkandroot.example.angularrestspringsecurity.rest.resources" />
+	<context:component-scan base-package="com.rest.resources" />
 	
 	<bean id="objectMapper" class="org.codehaus.jackson.map.ObjectMapper" />
 	
@@ -98,9 +98,9 @@
 		<security:intercept-url method="DELETE" pattern="/rest/news/**" access="hasRole('admin')" />
 	</security:http>
 
-	<bean id="unauthorizedEntryPoint" class="net.dontdrinkandroot.example.angularrestspringsecurity.rest.UnauthorizedEntryPoint" />
+	<bean id="unauthorizedEntryPoint" class="com.rest.UnauthorizedEntryPoint" />
 
-	<bean class="net.dontdrinkandroot.example.angularrestspringsecurity.rest.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter">
+	<bean class="com.rest.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter">
 		<constructor-arg ref="userDao" />
 	</bean>
 
