@@ -12,6 +12,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 import com.rest.TokenUtils;
+import com.service.BlogPostService;
 import com.transfer.TokenTransfer;
 import com.transfer.UserTransfer;
 
@@ -38,6 +39,9 @@ public class UserResource
 	@Autowired
 	@Qualifier("authenticationManager")
 	private AuthenticationManager authManager;
+
+
+
 
 
 	/**

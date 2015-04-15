@@ -31,24 +31,24 @@ public class BlogPost {
 		private String title;
 		private Set<Category> categories;
 
-		BlogPostBuilder buildContent(String content, String title){
+		public BlogPostBuilder buildContent(String content, String title){
 			this.content = content;
 			this.title = title;
 			return this;
 		}
 
-		BlogPostBuilder buildBasic(Long id, Date date){
+        public BlogPostBuilder buildBasic(Long id, Date date){
 			this.id = id;
 			this.date = date;
 			return this;
 		}
 
-		BlogPostBuilder buildCategories(Set<Category> categories){
+        public BlogPostBuilder buildCategories(Set<Category> categories){
 			this.categories = new HashSet<Category>(categories);
 			return this;
 		}
 
-		BlogPostBuilder buildFromEntity(NewsEntry newsEntry){
+        public BlogPostBuilder buildFromEntity(NewsEntry newsEntry){
 			this.id = newsEntry.getId();
 			this.date = newsEntry.getDate();
 			this.content = newsEntry.getContent();
@@ -56,7 +56,7 @@ public class BlogPost {
 			return this;
 		}
 
-		BlogPost build(){
+        public BlogPost build(){
 			return new BlogPost(this);
 		}
 	}

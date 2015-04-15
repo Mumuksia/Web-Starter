@@ -17,6 +17,8 @@ import com.JsonViews;
 import com.dao.newsentry.NewsEntryDao;
 import com.entity.NewsEntry;
 
+import com.service.BlogPostService;
+import com.service.model.BlogPost;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -38,11 +40,12 @@ public class NewsEntryResource
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private NewsEntryDao newsEntryDao;
-
+    @Autowired
+    private NewsEntryDao newsEntryDao;
 	@Autowired
 	private ObjectMapper mapper;
+    @Autowired
+    private BlogPostService blogPostService;
 
 
 	@GET
@@ -57,7 +60,7 @@ public class NewsEntryResource
 		} else {
 			viewWriter = this.mapper.writerWithView(JsonViews.User.class);
 		}
-		List<NewsEntry> allEntries = this.newsEntryDao.findAll();
+		List<BlogPost> allEntries = blogPostService.getAllPosts();
 
 		return viewWriter.writeValueAsString(allEntries);
 	}
