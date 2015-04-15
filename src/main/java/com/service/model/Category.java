@@ -1,7 +1,7 @@
 /**
  * Copyright Flexpay AB
  */
-package com.service;
+package com.service.model;
 
 import com.entity.NewsCategory;
 

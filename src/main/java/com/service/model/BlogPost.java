@@ -1,7 +1,7 @@
 /**
  * Copyright Flexpay AB
  */
-package com.service;
+package com.service.model;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 import com.entity.NewsEntry;
 
-public class News {
+public class BlogPost {
 
 	private Long id;
 	private Date date;
@@ -17,38 +17,38 @@ public class News {
 	private String title;
 	private Set<Category> categories;
 
-	public News(final NewsBuilder newsBuilder) {
-		this.id = newsBuilder.id;
-		this.date = newsBuilder.date;
-		this.content = newsBuilder.content;
-		this.title = newsBuilder.title;
+	public BlogPost(final BlogPostBuilder blogPostBuilder) {
+		this.id = blogPostBuilder.id;
+		this.date = blogPostBuilder.date;
+		this.content = blogPostBuilder.content;
+		this.title = blogPostBuilder.title;
 	}
 
-	public static class NewsBuilder{
+	public static class BlogPostBuilder {
 		private Long id;
 		private Date date;
 		private String content;
 		private String title;
 		private Set<Category> categories;
 
-		NewsBuilder buildContent(String content, String title){
+		BlogPostBuilder buildContent(String content, String title){
 			this.content = content;
 			this.title = title;
 			return this;
 		}
 
-		NewsBuilder buildBasic(Long id, Date date){
+		BlogPostBuilder buildBasic(Long id, Date date){
 			this.id = id;
 			this.date = date;
 			return this;
 		}
 
-		NewsBuilder buildCategories(Set<Category> categories){
+		BlogPostBuilder buildCategories(Set<Category> categories){
 			this.categories = new HashSet<Category>(categories);
 			return this;
 		}
 
-		NewsBuilder buildFromEntity(NewsEntry newsEntry){
+		BlogPostBuilder buildFromEntity(NewsEntry newsEntry){
 			this.id = newsEntry.getId();
 			this.date = newsEntry.getDate();
 			this.content = newsEntry.getContent();
@@ -56,8 +56,8 @@ public class News {
 			return this;
 		}
 
-		News build(){
-			return new News(this);
+		BlogPost build(){
+			return new BlogPost(this);
 		}
 	}
 }
