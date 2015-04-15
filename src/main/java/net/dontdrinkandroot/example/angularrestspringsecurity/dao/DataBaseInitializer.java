@@ -60,6 +60,7 @@ public class DataBaseInitializer
 			NewsEntry newsEntry = new NewsEntry();
 			newsEntry.setContent("This is example content " + i);
 			newsEntry.setDate(new Date(timestamp));
+			newsEntry.setTitle("Some title");
 			this.newsEntryDao.save(newsEntry);
 			timestamp += 1000 * 60 * 60;
 		}

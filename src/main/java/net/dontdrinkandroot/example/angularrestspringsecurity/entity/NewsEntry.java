@@ -30,6 +30,9 @@ public class NewsEntry implements Entity
 	@Column
 	private String content;
 
+	@Column
+	private String title;
+
 
 	public NewsEntry()
 	{
@@ -69,6 +72,14 @@ public class NewsEntry implements Entity
 		this.content = content;
 	}
 
+	@JsonView(JsonViews.User.class)
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(final String title) {
+		this.title = title;
+	}
 
 	@Override
 	public String toString()

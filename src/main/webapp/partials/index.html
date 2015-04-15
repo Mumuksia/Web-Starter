@@ -12,6 +12,7 @@
 		<a href="#!/edit/{{newsEntry.id}}" class="btn btn-xs btn-default" ng-show="hasRole('admin')" title="edit"><span class="glyphicon glyphicon-pencil"></span></a>
 	</div>
 	<h4>{{newsEntry.date | date}}</h4>
+	<h3>{{newsEntry.title}}</h3>
 	<p>{{newsEntry.content}}</p>
 </div>
 <hr />
