@@ -17,6 +17,26 @@ public class BlogPost {
 	private String title;
 	private Set<Category> categories;
 
+	public Long getId() {
+		return id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
 	public BlogPost(final BlogPostBuilder blogPostBuilder) {
 		this.id = blogPostBuilder.id;
 		this.date = blogPostBuilder.date;

@@ -1,10 +1,20 @@
 package com.service;
 
+import com.dao.newsentry.NewsEntryDao;
+import com.entity.NewsCategory;
+import com.entity.NewsEntry;
 import com.service.model.BlogPost;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.junit.Assert;
 
 /**
  * User: Muksia
@@ -13,16 +23,55 @@ import java.util.List;
  */
 public class BlogPostServiceImplTest {
 
-    private BlogPostService blogPostService;
+    private BlogPostServiceImpl blogPostService;
+    private NewsEntryDao newsEntryDao;
 
     @Before
     public void init(){
         blogPostService = new BlogPostServiceImpl();
+        newsEntryDao = Mockito.mock(NewsEntryDao.class);
+        blogPostService.setNewsEntryDao(newsEntryDao);
+
     }
 
     @Test
-    public void getAllNews(){
+    public void getAllNews_emptyList(){
+        Mockito.when(newsEntryDao.findAll()).thenReturn(new ArrayList<>());
         List<BlogPost> posts = blogPostService.getAllPosts();
+        Assert.assertEquals(posts.size(), 0);
 
+    }
+
+    @Test
+    public void getAllNews_noCategories(){
+        Mockito.when(newsEntryDao.findAll()).thenReturn(mockNewsEntriesList());
+        List<BlogPost> posts = blogPostService.getAllPosts();
+        Assert.assertEquals(posts.size(), 3);
+        Assert.assertEquals(posts.get(0).getContent(), "content 1");
+        Assert.assertEquals(posts.get(0).getTitle(), "title 1");
+        Assert.assertEquals(posts.get(1).getContent(), "content 2");
+        Assert.assertEquals(posts.get(1).getTitle(), "title 2");
+        Assert.assertEquals(posts.get(2).getContent(), "content 3");
+        Assert.assertEquals(posts.get(2).getTitle(), "title 3");
+
+    }
+
+    private List<NewsEntry> mockNewsEntriesList(){
+        List<NewsEntry> newsEntries = new ArrayList<>();
+        newsEntries.add(mockNewsEntry("content 1", "title 1", new HashSet<>(), new Date()));
+        newsEntries.add(mockNewsEntry("content 2", "title 2", new HashSet<>(), new Date()));
+        newsEntries.add(mockNewsEntry("content 3", "title 3", new HashSet<>(), new Date()));
+
+        return newsEntries;
+    }
+
+    private NewsEntry mockNewsEntry(final String content, final String title, final Set<NewsCategory> categories,
+                                    final Date date){
+        NewsEntry newsEntry = new NewsEntry();
+        newsEntry.setContent(content);
+        newsEntry.setTitle(title);
+        newsEntry.setCategories(categories);
+        newsEntry.setDate(date);
+        return newsEntry;
     }
 }

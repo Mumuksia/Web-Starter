@@ -11,6 +11,6 @@ import java.util.List;
 @Service
 public interface BlogPostService {
 
-	public List<BlogPost> getAllPosts();
+	List<BlogPost> getAllPosts();
 
 }

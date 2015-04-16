@@ -29,4 +29,8 @@ public class BlogPostServiceImpl implements BlogPostService {
         List<BlogPost> posts = newsEntries.stream().map(p->new BlogPost.BlogPostBuilder().buildFromEntity(p).build()).collect(Collectors.toList());
         return posts;
     }
+
+    public void setNewsEntryDao(final NewsEntryDao newsEntryDao) {
+        this.newsEntryDao = newsEntryDao;
+    }
 }
