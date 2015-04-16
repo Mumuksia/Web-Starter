@@ -68,7 +68,7 @@ public class DataBaseInitializer
 		Set<NewsCategory> newsCategories = new HashSet<NewsCategory>();
 		newsCategories.add(newsCategory);
 		long timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 24;
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 2; i++) {
 			NewsEntry newsEntry = new NewsEntry();
 			newsEntry.setContent("This is example content " + i);
 			newsEntry.setDate(new Date(timestamp));

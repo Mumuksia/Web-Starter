@@ -31,18 +31,23 @@ public class BlogPostServiceImpl implements BlogPostService {
     }
 
     @Override
+    @Transactional
     public BlogPost save(final BlogPost post) {
-        return null;
+        NewsEntry entry = newsEntryDao.save(new NewsEntry(post));
+        return new BlogPost.BlogPostBuilder().buildFromEntity(entry).build();
     }
 
     @Override
+    @Transactional
     public BlogPost findById(final Long id) {
-        return null;
+        NewsEntry entry = newsEntryDao.find(id);
+        return new BlogPost.BlogPostBuilder().buildFromEntity(entry).build();
     }
 
     @Override
+    @Transactional
     public void delete(final Long id) {
-
+        newsEntryDao.delete(id);
     }
 
     public void setNewsEntryDao(final NewsEntryDao newsEntryDao) {

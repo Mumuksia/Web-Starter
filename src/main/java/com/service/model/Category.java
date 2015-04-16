@@ -17,6 +17,9 @@ public class Category implements Serializable{
 	@JsonView(JsonViews.User.class)
 	private String name;
 
+	public Category() {
+	}
+
 	private Category(CategoryBuilder builder){
 		this.id = builder.id;
 		this.name = builder.name;

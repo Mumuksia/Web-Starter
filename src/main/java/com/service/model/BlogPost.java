@@ -47,6 +47,9 @@ public class BlogPost implements Serializable{
 		return categories;
 	}
 
+	public BlogPost() {
+	}
+
 	public BlogPost(final BlogPostBuilder blogPostBuilder) {
 		this.id = blogPostBuilder.id;
 		this.date = blogPostBuilder.date;
@@ -84,6 +87,9 @@ public class BlogPost implements Serializable{
 			this.date = newsEntry.getDate();
 			this.content = newsEntry.getContent();
 			this.title = newsEntry.getTitle();
+			if (newsEntry.getCategories() == null){
+				newsEntry.setCategories(new HashSet<>());
+			}
 			this.categories = newsEntry.getCategories().stream().map(this::getCategory).collect(Collectors.toSet());
 			return this;
 		}

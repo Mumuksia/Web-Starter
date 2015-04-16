@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.JsonViews;
+import com.service.model.BlogPost;
 
 import org.codehaus.jackson.map.annotate.JsonView;
 import org.hibernate.annotations.Cascade;
@@ -100,4 +101,10 @@ public class NewsEntry implements Entity
 		return String.format("NewsEntry[%d, %s]", this.id, this.content);
 	}
 
+	public NewsEntry(BlogPost blogPost) {
+		this.date = blogPost.getDate();
+		this.content = blogPost.getContent();
+		this.title = blogPost.getTitle();
+		this.id = blogPost.getId();
+	}
 }
