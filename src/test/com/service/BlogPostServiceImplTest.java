@@ -4,6 +4,8 @@ import com.dao.newsentry.NewsEntryDao;
 import com.entity.NewsCategory;
 import com.entity.NewsEntry;
 import com.service.model.BlogPost;
+import com.service.model.Category;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -44,7 +46,7 @@ public class BlogPostServiceImplTest {
 
     @Test
     public void getAllNews_noCategories(){
-        Mockito.when(newsEntryDao.findAll()).thenReturn(mockNewsEntriesList());
+        Mockito.when(newsEntryDao.findAll()).thenReturn(mockNewsEntriesList(false));
         List<BlogPost> posts = blogPostService.getAllPosts();
         Assert.assertEquals(posts.size(), 3);
         Assert.assertEquals(posts.get(0).getContent(), "content 1");
@@ -56,11 +58,32 @@ public class BlogPostServiceImplTest {
 
     }
 
-    private List<NewsEntry> mockNewsEntriesList(){
+    @Test
+    public void getAllNews_Categories(){
+        Mockito.when(newsEntryDao.findAll()).thenReturn(mockNewsEntriesList(true));
+        List<BlogPost> posts = blogPostService.getAllPosts();
+        Assert.assertEquals(posts.size(), 3);
+        Assert.assertEquals(posts.get(0).getContent(), "content 1");
+        Assert.assertEquals(posts.get(0).getTitle(), "title 1");
+        Assert.assertEquals(posts.get(0).getCategories().size(), 1);
+        Assert.assertEquals(posts.get(1).getContent(), "content 2");
+        Assert.assertEquals(posts.get(1).getTitle(), "title 2");
+        Assert.assertEquals(posts.get(2).getContent(), "content 3");
+        Assert.assertEquals(posts.get(2).getTitle(), "title 3");
+
+    }
+
+    private List<NewsEntry> mockNewsEntriesList(boolean includeCategories){
         List<NewsEntry> newsEntries = new ArrayList<>();
-        newsEntries.add(mockNewsEntry("content 1", "title 1", new HashSet<>(), new Date()));
-        newsEntries.add(mockNewsEntry("content 2", "title 2", new HashSet<>(), new Date()));
-        newsEntries.add(mockNewsEntry("content 3", "title 3", new HashSet<>(), new Date()));
+        Set<NewsCategory> categories = new HashSet<>();
+        if (includeCategories){
+            NewsCategory newsCategory = new NewsCategory();
+            newsCategory.setName("category name");
+            categories.add(newsCategory);
+        }
+        newsEntries.add(mockNewsEntry("content 1", "title 1", categories, new Date()));
+        newsEntries.add(mockNewsEntry("content 2", "title 2", categories, new Date()));
+        newsEntries.add(mockNewsEntry("content 3", "title 3", categories, new Date()));
 
         return newsEntries;
     }

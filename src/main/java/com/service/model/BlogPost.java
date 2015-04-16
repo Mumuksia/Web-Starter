@@ -6,7 +6,9 @@ package com.service.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.entity.NewsCategory;
 import com.entity.NewsEntry;
 
 public class BlogPost {
@@ -42,6 +44,7 @@ public class BlogPost {
 		this.date = blogPostBuilder.date;
 		this.content = blogPostBuilder.content;
 		this.title = blogPostBuilder.title;
+		this.categories = blogPostBuilder.categories;
 	}
 
 	public static class BlogPostBuilder {
@@ -73,7 +76,12 @@ public class BlogPost {
 			this.date = newsEntry.getDate();
 			this.content = newsEntry.getContent();
 			this.title = newsEntry.getTitle();
+			this.categories = newsEntry.getCategories().stream().map(this::getCategory).collect(Collectors.toSet());
 			return this;
+		}
+
+		private Category getCategory(NewsCategory newsCategory){
+			return new Category.CategoryBuilder().buildFromEntity(newsCategory).build();
 		}
 
         public BlogPost build(){

@@ -7,7 +7,7 @@ import com.entity.NewsCategory;
 
 public class Category {
 
-	private long id;
+	private Long id;
 	private String name;
 
 	private Category(CategoryBuilder builder){
@@ -16,16 +16,16 @@ public class Category {
 	}
 
 	public static class CategoryBuilder{
-		public long id;
+		public Long id;
 		public String name;
 
-		CategoryBuilder buildFromEntity(NewsCategory newsCategory){
+		public CategoryBuilder buildFromEntity(NewsCategory newsCategory){
 			this.id = newsCategory.getId();
 			this.name = newsCategory.getName();
 			return this;
 		}
 
-		Category build(){
+		public Category build(){
 			return new Category(this);
 		}
 	}
