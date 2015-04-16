@@ -3,15 +3,19 @@
  */
 package com.service.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.codehaus.jackson.map.annotate.JsonView;
+
+import com.JsonViews;
 import com.entity.NewsCategory;
 import com.entity.NewsEntry;
 
-public class BlogPost {
+public class BlogPost implements Serializable{
 
 	private Long id;
 	private Date date;
@@ -19,18 +23,22 @@ public class BlogPost {
 	private String title;
 	private Set<Category> categories;
 
+	@JsonView(JsonViews.Admin.class)
 	public Long getId() {
 		return id;
 	}
 
+	@JsonView(JsonViews.Admin.class)
 	public Date getDate() {
 		return date;
 	}
 
+	@JsonView(JsonViews.User.class)
 	public String getContent() {
 		return content;
 	}
 
+	@JsonView(JsonViews.User.class)
 	public String getTitle() {
 		return title;
 	}

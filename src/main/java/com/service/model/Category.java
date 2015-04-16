@@ -3,11 +3,18 @@
  */
 package com.service.model;
 
+import java.io.Serializable;
+
+import org.codehaus.jackson.map.annotate.JsonView;
+
+import com.JsonViews;
 import com.entity.NewsCategory;
 
-public class Category {
+public class Category implements Serializable{
 
+	@JsonView(JsonViews.Admin.class)
 	private Long id;
+	@JsonView(JsonViews.User.class)
 	private String name;
 
 	private Category(CategoryBuilder builder){
