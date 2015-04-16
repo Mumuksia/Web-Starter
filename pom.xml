@@ -8,7 +8,7 @@
 
 	<properties>
 		<!-- Spring Security is based on Spring 3.0.7 -->
-		<spring.version>3.2.8.RELEASE</spring.version>
+		<spring.version>4.0.3.RELEASE</spring.version>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
 		<jersey.version>1.18.1</jersey.version>
 		<org.slf4j.version>1.7.7</org.slf4j.version>
@@ -18,13 +18,13 @@
 		<org.hsqldb.version>2.3.2</org.hsqldb.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<junit.version>4.11</junit.version>
-		<org.eclipse.jetty.jetty-maven-plugin.version>9.1.1.v20140108</org.eclipse.jetty.jetty-maven-plugin.version>
+		<jetty-maven-plugin.version>9.3.0.M0</jetty-maven-plugin.version>
 	</properties>
 
 	<developers>
 		<developer>
-			<name>Philip Washington Sorst</name>
-			<url>http://sorst.net</url>
+			<name>Yuriy</name>
+			<url>google.com</url>
 		</developer>
 	</developers>
 
@@ -54,7 +54,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>${org.eclipse.jetty.jetty-maven-plugin.version}</version>
+				<version>${jetty-maven-plugin.version}</version>
 			</plugin>
 		</plugins>
 	</build>

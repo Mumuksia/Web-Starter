@@ -1,6 +1,3 @@
-/**
- * Copyright Flexpay AB
- */
 package com.dao.newscategory;
 
 import com.dao.Dao;
