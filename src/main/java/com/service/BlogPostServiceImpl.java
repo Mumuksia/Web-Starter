@@ -24,10 +24,25 @@ public class BlogPostServiceImpl implements BlogPostService {
 
     @Override
     @Transactional
-    public List<BlogPost> getAllPosts() {
+    public List<BlogPost> getAll() {
         List<NewsEntry> newsEntries = newsEntryDao.findAll();
         List<BlogPost> posts = newsEntries.stream().map(p->new BlogPost.BlogPostBuilder().buildFromEntity(p).build()).collect(Collectors.toList());
         return posts;
+    }
+
+    @Override
+    public BlogPost save(final BlogPost post) {
+        return null;
+    }
+
+    @Override
+    public BlogPost findById(final Long id) {
+        return null;
+    }
+
+    @Override
+    public void delete(final Long id) {
+
     }
 
     public void setNewsEntryDao(final NewsEntryDao newsEntryDao) {

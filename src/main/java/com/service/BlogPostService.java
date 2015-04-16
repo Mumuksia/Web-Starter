@@ -11,6 +11,12 @@ import java.util.List;
 @Service
 public interface BlogPostService {
 
-	List<BlogPost> getAllPosts();
+	List<BlogPost> getAll();
+
+	BlogPost save(BlogPost post);
+
+	BlogPost findById(Long id);
+
+	void delete(Long id);
 
 }

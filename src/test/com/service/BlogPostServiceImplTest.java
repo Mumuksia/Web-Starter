@@ -4,7 +4,6 @@ import com.dao.newsentry.NewsEntryDao;
 import com.entity.NewsCategory;
 import com.entity.NewsEntry;
 import com.service.model.BlogPost;
-import com.service.model.Category;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +38,7 @@ public class BlogPostServiceImplTest {
     @Test
     public void getAllNews_emptyList(){
         Mockito.when(newsEntryDao.findAll()).thenReturn(new ArrayList<>());
-        List<BlogPost> posts = blogPostService.getAllPosts();
+        List<BlogPost> posts = blogPostService.getAll();
         Assert.assertEquals(posts.size(), 0);
 
     }
@@ -47,7 +46,7 @@ public class BlogPostServiceImplTest {
     @Test
     public void getAllNews_noCategories(){
         Mockito.when(newsEntryDao.findAll()).thenReturn(mockNewsEntriesList(false));
-        List<BlogPost> posts = blogPostService.getAllPosts();
+        List<BlogPost> posts = blogPostService.getAll();
         Assert.assertEquals(posts.size(), 3);
         Assert.assertEquals(posts.get(0).getContent(), "content 1");
         Assert.assertEquals(posts.get(0).getTitle(), "title 1");
@@ -61,7 +60,7 @@ public class BlogPostServiceImplTest {
     @Test
     public void getAllNews_Categories(){
         Mockito.when(newsEntryDao.findAll()).thenReturn(mockNewsEntriesList(true));
-        List<BlogPost> posts = blogPostService.getAllPosts();
+        List<BlogPost> posts = blogPostService.getAll();
         Assert.assertEquals(posts.size(), 3);
         Assert.assertEquals(posts.get(0).getContent(), "content 1");
         Assert.assertEquals(posts.get(0).getTitle(), "title 1");

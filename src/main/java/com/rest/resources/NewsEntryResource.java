@@ -40,8 +40,6 @@ public class NewsEntryResource
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private NewsEntryDao newsEntryDao;
 	@Autowired
 	private ObjectMapper mapper;
     @Autowired
@@ -60,7 +58,7 @@ public class NewsEntryResource
 		} else {
 			viewWriter = this.mapper.writerWithView(JsonViews.User.class);
 		}
-		List<BlogPost> allEntries = blogPostService.getAllPosts();
+		List<BlogPost> allEntries = blogPostService.getAll();
 
 		return viewWriter.writeValueAsString(allEntries);
 	}
@@ -69,26 +67,26 @@ public class NewsEntryResource
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public NewsEntry read(@PathParam("id") Long id)
+	public BlogPost read(@PathParam("id") Long id)
 	{
 		this.logger.info("read(id)");
 
-		NewsEntry newsEntry = this.newsEntryDao.find(id);
-		if (newsEntry == null) {
+		BlogPost post = this.blogPostService.findById(id);
+		if (post == null) {
 			throw new WebApplicationException(404);
 		}
-		return newsEntry;
+		return post;
 	}
 
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public NewsEntry create(NewsEntry newsEntry)
+	public BlogPost create(BlogPost blogPost)
 	{
-		this.logger.info("create(): " + newsEntry);
+		this.logger.info("create(): " + blogPost);
 
-		return this.newsEntryDao.save(newsEntry);
+		return this.blogPostService.save(blogPost);
 	}
 
 
@@ -96,11 +94,11 @@ public class NewsEntryResource
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public NewsEntry update(@PathParam("id") Long id, NewsEntry newsEntry)
+	public BlogPost update(@PathParam("id") Long id, BlogPost blogPost)
 	{
-		this.logger.info("update(): " + newsEntry);
+		this.logger.info("update(): " + blogPost);
 
-		return this.newsEntryDao.save(newsEntry);
+		return this.blogPostService.save(blogPost);
 	}
 
 
@@ -111,7 +109,7 @@ public class NewsEntryResource
 	{
 		this.logger.info("delete(id)");
 
-		this.newsEntryDao.delete(id);
+		this.blogPostService.delete(id);
 	}
 
 
