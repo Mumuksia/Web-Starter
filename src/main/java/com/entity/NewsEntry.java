@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import org.codehaus.jackson.map.annotate.JsonView;
@@ -36,6 +38,9 @@ public class NewsEntry implements Entity
 	private String title;
 
 	@ManyToMany(targetEntity = NewsCategory.class, fetch = FetchType.LAZY)
+	@JoinTable(name="newsEntry_newsCategory",
+			joinColumns=@JoinColumn(name="entry_id"),
+			inverseJoinColumns=@JoinColumn(name="category_id"))
 	@Cascade(CascadeType.ALL)
 	private Set<NewsCategory> categories;
 

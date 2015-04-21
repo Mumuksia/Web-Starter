@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.dao.newscategory.NewsCategoryDao;
 import com.dao.newsentry.NewsEntryDao;
 import com.dao.user.UserDao;
@@ -11,21 +13,13 @@ import com.entity.NewsCategory;
 import com.entity.NewsEntry;
 import com.entity.User;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-
-/**
- * Initialize the database with some test entries.
- * 
- * @author Philip W. Sorst <philip@sorst.net>
- */
 public class DataBaseInitializer
 {
 
 	private NewsEntryDao newsEntryDao;
 	private UserDao userDao;
 	private NewsCategoryDao newsCategoryDao;
-
 	private PasswordEncoder passwordEncoder;
 
 
@@ -65,8 +59,13 @@ public class DataBaseInitializer
 		newsCategory.setName("Category Name");
 		this.newsCategoryDao.save(newsCategory);
 
+		NewsCategory newsCategory2 = new NewsCategory();
+		newsCategory2.setName("Category Name2");
+		this.newsCategoryDao.save(newsCategory2);
+
 		Set<NewsCategory> newsCategories = new HashSet<NewsCategory>();
 		newsCategories.add(newsCategory);
+		newsCategories.add(newsCategory2);
 		long timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 24;
 		for (int i = 0; i < 2; i++) {
 			NewsEntry newsEntry = new NewsEntry();

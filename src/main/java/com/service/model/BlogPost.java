@@ -22,6 +22,7 @@ public class BlogPost implements Serializable{
 	private String content;
 	private String title;
 	private Set<Category> categories;
+	private String categoriesString;
 
 	@JsonView(JsonViews.Admin.class)
 	public Long getId() {
@@ -45,6 +46,12 @@ public class BlogPost implements Serializable{
 
 	public Set<Category> getCategories() {
 		return categories;
+	}
+
+	@JsonView(JsonViews.User.class)
+	public String getCategoriesString(){
+		categoriesString = categories.stream().map(Category::getName).reduce((t, u) -> t + " | " + u).get();
+		return categoriesString;
 	}
 
 	public BlogPost() {
