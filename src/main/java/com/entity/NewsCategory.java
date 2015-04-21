@@ -3,12 +3,11 @@
  */
 package com.entity;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+
+import com.service.model.Category;
 
 @javax.persistence.Entity
 public class NewsCategory implements Entity {
@@ -20,9 +19,6 @@ public class NewsCategory implements Entity {
 
 	@Column
 	private String name;
-
-	@ManyToMany(targetEntity = NewsEntry.class, mappedBy = "categories")
-	private Set<NewsEntry> newsEntries;
 
 	public Long getId() {
 		return id;
@@ -36,20 +32,19 @@ public class NewsCategory implements Entity {
 		this.name = name;
 	}
 
-	public Set<NewsEntry> getNewsEntries() {
-		return newsEntries;
-	}
-
-	public void setNewsEntries(
-			final Set<NewsEntry> newsEntries) {
-		this.newsEntries = newsEntries;
-	}
-
 	@Override
 	public String toString() {
 		return "NewsCategory{" +
 			   "id=" + id +
 			   ", name='" + name + '\'' +
 			   '}';
+	}
+
+	public NewsCategory(final Category category) {
+		this.name = category.getName();
+		this.id = category.getId();
+	}
+
+	public NewsCategory() {
 	}
 }

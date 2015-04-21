@@ -2,6 +2,7 @@ package com.entity;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -9,12 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.JsonViews;
-import com.service.model.BlogPost;
-
 import org.codehaus.jackson.map.annotate.JsonView;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
+import com.JsonViews;
+import com.service.model.BlogPost;
 
 
 @javax.persistence.Entity
@@ -106,5 +107,6 @@ public class NewsEntry implements Entity
 		this.content = blogPost.getContent();
 		this.title = blogPost.getTitle();
 		this.id = blogPost.getId();
+		this.categories = blogPost.getCategories().stream().map(NewsCategory::new).collect(Collectors.toSet());
 	}
 }

@@ -17,6 +17,14 @@ public class Category implements Serializable{
 	@JsonView(JsonViews.User.class)
 	private String name;
 
+	public Long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 	public Category() {
 	}
 
