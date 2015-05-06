@@ -1,20 +1,14 @@
 package com.entity;
 
 import java.util.Date;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.codehaus.jackson.map.annotate.JsonView;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import com.JsonViews;
 import com.service.model.BlogPost;
@@ -37,12 +31,8 @@ public class NewsEntry implements Entity
 	@Column
 	private String title;
 
-	@ManyToMany(targetEntity = NewsCategory.class, fetch = FetchType.LAZY)
-	@JoinTable(name="newsEntry_newsCategory",
-			joinColumns=@JoinColumn(name="entry_id"),
-			inverseJoinColumns=@JoinColumn(name="category_id"))
-	@Cascade(CascadeType.ALL)
-	private Set<NewsCategory> categories;
+	@ManyToOne(targetEntity = NewsCategory.class, fetch = FetchType.LAZY)
+	private NewsCategory categories;
 
 
 	public NewsEntry()
@@ -92,12 +82,11 @@ public class NewsEntry implements Entity
 		this.title = title;
 	}
 
-	public Set<NewsCategory> getCategories() {
+	public NewsCategory getCategories() {
 		return categories;
 	}
 
-	public void setCategories(
-			final Set<NewsCategory> categories) {
+	public void setCategories(final NewsCategory categories) {
 		this.categories = categories;
 	}
 
@@ -112,6 +101,6 @@ public class NewsEntry implements Entity
 		this.content = blogPost.getContent();
 		this.title = blogPost.getTitle();
 		this.id = blogPost.getId();
-		this.categories = blogPost.getCategories().stream().map(NewsCategory::new).collect(Collectors.toSet());
+		this.categories = new NewsCategory(blogPost.getCategories());
 	}
 }

@@ -13,12 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
-import com.JsonViews;
-import com.dao.newsentry.NewsEntryDao;
-import com.entity.NewsEntry;
-
-import com.service.BlogPostService;
-import com.service.model.BlogPost;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -31,6 +25,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.JsonViews;
+import com.service.BlogPostService;
+import com.service.model.BlogPost;
 
 
 @Component
@@ -117,7 +115,7 @@ public class NewsEntryResource
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Object principal = authentication.getPrincipal();
-		if (principal instanceof String && ((String) principal).equals("anonymousUser")) {
+		if (principal instanceof String && principal.equals("anonymousUser")) {
 			return false;
 		}
 		UserDetails userDetails = (UserDetails) principal;

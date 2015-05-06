@@ -1,10 +1,10 @@
 package com.dao;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.newscategory.NewsCategoryDao;
 import com.dao.newsentry.NewsEntryDao;
@@ -55,27 +55,30 @@ public class DataBaseInitializer
         adminUser2.addRole("admin");
         this.userDao.save(adminUser2);
 
-		NewsCategory newsCategory = new NewsCategory();
-		newsCategory.setName("Category Name");
-		this.newsCategoryDao.save(newsCategory);
+		NewsCategory newsCategory = ccreateNewsCategory("Category Name");
 
-		NewsCategory newsCategory2 = new NewsCategory();
+/*		NewsCategory newsCategory2 = new NewsCategory();
 		newsCategory2.setName("Category Name2");
-		this.newsCategoryDao.save(newsCategory2);
+		this.newsCategoryDao.save(newsCategory2);*/
 
-		Set<NewsCategory> newsCategories = new HashSet<NewsCategory>();
-		newsCategories.add(newsCategory);
-		newsCategories.add(newsCategory2);
 		long timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 24;
 		for (int i = 0; i < 2; i++) {
 			NewsEntry newsEntry = new NewsEntry();
 			newsEntry.setContent("This is example content " + i);
 			newsEntry.setDate(new Date(timestamp));
 			newsEntry.setTitle("Some title");
-			newsEntry.setCategories(newsCategories);
+			newsEntry.setCategories(newsCategory);
 			this.newsEntryDao.save(newsEntry);
 			timestamp += 1000 * 60 * 60;
 		}
+	}
+
+	@Transactional(propagation = Propagation.MANDATORY)
+	private NewsCategory ccreateNewsCategory(final String name){
+		NewsCategory newsCategory = new NewsCategory();
+		newsCategory.setName(name);
+		this.newsCategoryDao.save(newsCategory);
+		return newsCategory;
 	}
 
 }

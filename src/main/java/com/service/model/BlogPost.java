@@ -5,9 +5,6 @@ package com.service.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.codehaus.jackson.map.annotate.JsonView;
 
@@ -21,7 +18,7 @@ public class BlogPost implements Serializable{
 	private Date date;
 	private String content;
 	private String title;
-	private Set<Category> categories;
+	private Category categories;
 	private String categoriesString;
 
 	@JsonView(JsonViews.Admin.class)
@@ -44,14 +41,13 @@ public class BlogPost implements Serializable{
 		return title;
 	}
 
-	public Set<Category> getCategories() {
+	public Category getCategories() {
 		return categories;
 	}
 
 	@JsonView(JsonViews.User.class)
 	public String getCategoriesString(){
-		categoriesString = categories.stream().map(Category::getName).reduce((t, u) -> t + " | " + u).get();
-		return categoriesString;
+		return categories.getName();
 	}
 
 	public BlogPost() {
@@ -70,7 +66,7 @@ public class BlogPost implements Serializable{
 		private Date date;
 		private String content;
 		private String title;
-		private Set<Category> categories;
+		private Category categories;
 
 		public BlogPostBuilder buildContent(String content, String title){
 			this.content = content;
@@ -84,8 +80,8 @@ public class BlogPost implements Serializable{
 			return this;
 		}
 
-        public BlogPostBuilder buildCategories(Set<Category> categories){
-			this.categories = new HashSet<Category>(categories);
+        public BlogPostBuilder buildCategories(Category categories){
+			this.categories = categories;
 			return this;
 		}
 
@@ -94,10 +90,7 @@ public class BlogPost implements Serializable{
 			this.date = newsEntry.getDate();
 			this.content = newsEntry.getContent();
 			this.title = newsEntry.getTitle();
-			if (newsEntry.getCategories() == null){
-				newsEntry.setCategories(new HashSet<>());
-			}
-			this.categories = newsEntry.getCategories().stream().map(this::getCategory).collect(Collectors.toSet());
+			this.categories = getCategory(newsEntry.getCategories());
 			return this;
 		}
 
