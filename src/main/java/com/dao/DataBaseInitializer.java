@@ -3,8 +3,6 @@ package com.dao;
 import java.util.Date;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.newscategory.NewsCategoryDao;
 import com.dao.newsentry.NewsEntryDao;
@@ -55,12 +53,12 @@ public class DataBaseInitializer
         adminUser2.addRole("admin");
         this.userDao.save(adminUser2);
 
-		NewsCategory newsCategory = ccreateNewsCategory("Category Name");
+		NewsCategory newsCategory = createNewsCategory("Category Name");
 
-/*		NewsCategory newsCategory2 = new NewsCategory();
-		newsCategory2.setName("Category Name2");
-		this.newsCategoryDao.save(newsCategory2);*/
+		createNewsEntry(newsCategory);
+	}
 
+	private void createNewsEntry(final NewsCategory newsCategory) {
 		long timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 24;
 		for (int i = 0; i < 2; i++) {
 			NewsEntry newsEntry = new NewsEntry();
@@ -73,12 +71,10 @@ public class DataBaseInitializer
 		}
 	}
 
-	@Transactional(propagation = Propagation.MANDATORY)
-	private NewsCategory ccreateNewsCategory(final String name){
+	private NewsCategory createNewsCategory(final String name){
 		NewsCategory newsCategory = new NewsCategory();
 		newsCategory.setName(name);
-		this.newsCategoryDao.save(newsCategory);
-		return newsCategory;
+		return this.newsCategoryDao.save(newsCategory);
 	}
 
 }

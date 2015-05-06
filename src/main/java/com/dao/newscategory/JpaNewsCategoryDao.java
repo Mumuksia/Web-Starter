@@ -11,4 +11,5 @@ public class JpaNewsCategoryDao extends JpaDao<NewsCategory, Long> implements Ne
 	public JpaNewsCategoryDao() {
 		super(NewsCategory.class);
 	}
+
 }
