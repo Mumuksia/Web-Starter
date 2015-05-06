@@ -1,14 +1,16 @@
 package com.service;
 
-import com.dao.newsentry.NewsEntryDao;
-import com.entity.NewsEntry;
-import com.service.model.BlogPost;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.dao.newsentry.NewsEntryDao;
+import com.entity.NewsEntry;
+import com.service.model.BlogPost;
+import com.service.model.Category;
 
 /**
  * User: Muksia
@@ -22,6 +24,9 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Autowired
     private NewsEntryDao newsEntryDao;
 
+	@Autowired
+	private CategoryService categoryService;
+
     @Override
     @Transactional
     public List<BlogPost> getAll() {
@@ -34,6 +39,7 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Transactional
     public BlogPost save(final BlogPost post) {
         NewsEntry entry = newsEntryDao.save(new NewsEntry(post));
+		Category category = categoryService.updateCategory(post.getCategories());
         return new BlogPost.BlogPostBuilder().buildFromEntity(entry).build();
     }
 
