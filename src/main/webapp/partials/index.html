@@ -1,23 +1,36 @@
-<div class="pull-right">
-	<a href="#!/create" class="btn btn-default" ng-show="hasRole('admin')" title="Create"><span class="glyphicon glyphicon-plus"></span></a>
-</div>
-<div class="page-header">
-	<h3>Posts</h3>
-</div>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-9">
+			<div class="pull-right">
+				<a href="#!/create" class="btn btn-default" ng-show="hasRole('admin')" title="Create"><span
+						class="glyphicon glyphicon-plus"></span></a>
+			</div>
+			<div class="page-header">
+				<h3>Posts</h3>
+			</div>
 
 
-<div ng-repeat="newsEntry in newsEntries">
-	<hr />
-	<div class="pull-right">
-		<a href="" ng-click="deleteEntry(newsEntry)" class="btn btn-xs btn-default" ng-show="hasRole('admin')" title="delete"><span class="glyphicon glyphicon-trash"></span></a>
-		<a href="#!/edit/{{newsEntry.id}}" class="btn btn-xs btn-default" ng-show="hasRole('admin')" title="edit"><span class="glyphicon glyphicon-pencil"></span></a>
+			<div ng-repeat="newsEntry in newsEntries">
+				<hr/>
+				<div class="pull-right">
+					<a href="" ng-click="deleteEntry(newsEntry)" class="btn btn-xs btn-default"
+					   ng-show="hasRole('admin')"
+					   title="delete"><span class="glyphicon glyphicon-trash"></span></a>
+					<a href="#!/edit/{{newsEntry.id}}" class="btn btn-xs btn-default" ng-show="hasRole('admin')"
+					   title="edit"><span class="glyphicon glyphicon-pencil"></span></a>
+				</div>
+				<h3>{{newsEntry.title}}</h3>
+
+				<p>{{newsEntry.content}}</p>
+				<h4>{{newsEntry.date | date}}</h4>
+			</div>
+
+			<hr/>
+		</div>
+		<div class="col-xs-3">
+			<div ng-repeat="category in categories" class="left">
+				<p>{{category.name}}</p>
+			</div>
+		</div>
 	</div>
-	<h3>{{newsEntry.title}}</h3>
-	<p>{{newsEntry.content}}</p>
-	<h4>{{newsEntry.date | date}}</h4>
 </div>
-
-<div ng-repeat="category in categories">
-	<p>{{category.name}}</p>
-</div>
-<hr />
