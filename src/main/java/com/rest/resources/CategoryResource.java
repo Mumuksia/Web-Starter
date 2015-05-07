@@ -1,3 +1,6 @@
+/**
+ * Copyright Flexpay AB
+ */
 package com.rest.resources;
 
 import java.io.IOException;
@@ -27,28 +30,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.JsonViews;
-import com.service.BlogPostService;
-import com.service.model.BlogPost;
-
+import com.service.CategoryService;
+import com.service.model.Category;
 
 @Component
-@Path("/posts")
-public class NewsEntryResource
-{
+@Path("/categories")
+public class CategoryResource {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private ObjectMapper mapper;
-    @Autowired
-    private BlogPostService blogPostService;
+	@Autowired
+	private CategoryService categoryService;
 
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String list() throws JsonGenerationException, JsonMappingException, IOException
 	{
-		this.logger.info("list()");
+		this.logger.info("listCategories()");
 
 		ObjectWriter viewWriter;
 		if (this.isAdmin()) {
@@ -56,34 +57,34 @@ public class NewsEntryResource
 		} else {
 			viewWriter = this.mapper.writerWithView(JsonViews.User.class);
 		}
-		List<BlogPost> allEntries = blogPostService.getAll();
+		List<Category> categories = categoryService.findAllCategories();
 
-		return viewWriter.writeValueAsString(allEntries);
+		return viewWriter.writeValueAsString(categories);
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public BlogPost read(@PathParam("id") Long id)
+	public Category read(@PathParam("id") Long id)
 	{
 		this.logger.info("read(id)");
 
-		BlogPost post = this.blogPostService.findById(id);
-		if (post == null) {
+		Category category = categoryService.getCategory(id);
+		if (category == null) {
 			throw new WebApplicationException(404);
 		}
-		return post;
+		return category;
 	}
 
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public BlogPost create(BlogPost blogPost)
+	public Category create(Category category)
 	{
-		this.logger.info("create(): " + blogPost);
+		this.logger.info("create(): " + category);
 
-		return this.blogPostService.save(blogPost);
+		return categoryService.updateCategory(category);
 	}
 
 
@@ -91,11 +92,11 @@ public class NewsEntryResource
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public BlogPost update(@PathParam("id") Long id, BlogPost blogPost)
+	public Category update(@PathParam("id") Long id, Category blogPost)
 	{
 		this.logger.info("update(): " + blogPost);
 
-		return this.blogPostService.save(blogPost);
+		return categoryService.updateCategory(blogPost);
 	}
 
 
@@ -106,9 +107,8 @@ public class NewsEntryResource
 	{
 		this.logger.info("delete(id)");
 
-		this.blogPostService.delete(id);
+		categoryService.deleteCategory(id);
 	}
-
 
 	private boolean isAdmin()
 	{
@@ -118,6 +118,7 @@ public class NewsEntryResource
 			return false;
 		}
 		UserDetails userDetails = (UserDetails) principal;
+
 
 		for (GrantedAuthority authority : userDetails.getAuthorities()) {
 			if (authority.toString().equals("admin")) {

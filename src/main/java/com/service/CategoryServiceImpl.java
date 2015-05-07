@@ -4,6 +4,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,12 +26,18 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public void deleteCategory(final Category category) {
+	public void deleteCategory(final long categoryId) {
 
 	}
 
 	@Override
 	public List<Category> findAllCategories() {
+		return newsCategoryDao.findAll().stream().map(p->new Category.CategoryBuilder().buildFromEntity(p).build()).collect(
+				Collectors.toList());
+	}
+
+	@Override
+	public Category getCategory(final long categoryId) {
 		return null;
 	}
 
