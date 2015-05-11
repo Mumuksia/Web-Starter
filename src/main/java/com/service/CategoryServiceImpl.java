@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.dao.model.entity.NewsCategory;
 import com.dao.newscategory.NewsCategoryDao;
-import com.entity.NewsCategory;
 import com.service.model.BlogPost;
 import com.service.model.Category;
 

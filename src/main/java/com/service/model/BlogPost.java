@@ -7,10 +7,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.codehaus.jackson.map.annotate.JsonView;
+import org.springframework.util.StringUtils;
 
 import com.JsonViews;
-import com.entity.NewsCategory;
-import com.entity.NewsEntry;
+import com.dao.model.entity.NewsCategory;
+import com.dao.model.entity.NewsEntry;
 
 public class BlogPost implements Serializable{
 
@@ -47,7 +48,10 @@ public class BlogPost implements Serializable{
 
 	@JsonView(JsonViews.User.class)
 	public String getCategoryName(){
-		return category.getName();
+		if (StringUtils.isEmpty(categoryName)){
+			categoryName = category.getName();
+		}
+		return categoryName;
 	}
 
 	public BlogPost() {

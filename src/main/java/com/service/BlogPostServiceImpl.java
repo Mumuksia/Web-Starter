@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dao.model.entity.NewsCategory;
+import com.dao.model.entity.NewsEntry;
 import com.dao.newsentry.NewsEntryDao;
-import com.entity.NewsEntry;
 import com.service.model.BlogPost;
 import com.service.model.Category;
 
@@ -39,7 +40,10 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Transactional
     public BlogPost save(final BlogPost post) {
 		Category category = categoryService.updateCategory(post.getCategoryName());
-		NewsEntry entry = newsEntryDao.save(new NewsEntry(post));
+
+		NewsEntry entry = new NewsEntry(post);
+		entry.setNewsCategory(new NewsCategory(category));
+		newsEntryDao.save(entry);
         return new BlogPost.BlogPostBuilder().buildFromEntity(entry).build();
     }
 

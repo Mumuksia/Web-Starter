@@ -8,12 +8,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import com.dao.JpaDao;
-import com.entity.User;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.dao.JpaDao;
+import com.dao.model.entity.User;
 
 
 public class JpaUserDao extends JpaDao<User, Long> implements UserDao

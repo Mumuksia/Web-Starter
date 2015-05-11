@@ -8,7 +8,7 @@ import java.io.Serializable;
 import org.codehaus.jackson.map.annotate.JsonView;
 
 import com.JsonViews;
-import com.entity.NewsCategory;
+import com.dao.model.entity.NewsCategory;
 
 public class Category implements Serializable{
 

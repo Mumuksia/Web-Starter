@@ -9,9 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.dao.model.entity.NewsCategory;
+import com.dao.model.entity.NewsEntry;
 import com.dao.newsentry.NewsEntryDao;
-import com.entity.NewsCategory;
-import com.entity.NewsEntry;
 import com.service.model.BlogPost;
 
 /**

@@ -4,12 +4,12 @@ import java.util.Date;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.dao.model.entity.NewsCategory;
+import com.dao.model.entity.NewsEntry;
+import com.dao.model.entity.User;
 import com.dao.newscategory.NewsCategoryDao;
 import com.dao.newsentry.NewsEntryDao;
 import com.dao.user.UserDao;
-import com.entity.NewsCategory;
-import com.entity.NewsEntry;
-import com.entity.User;
 
 
 public class DataBaseInitializer

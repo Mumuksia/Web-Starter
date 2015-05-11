@@ -7,10 +7,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.dao.JpaDao;
-import com.entity.NewsEntry;
-
 import org.springframework.transaction.annotation.Transactional;
+
+import com.dao.JpaDao;
+import com.dao.model.entity.NewsEntry;
 
 
 public class JpaNewsEntryDao extends JpaDao<NewsEntry, Long> implements NewsEntryDao

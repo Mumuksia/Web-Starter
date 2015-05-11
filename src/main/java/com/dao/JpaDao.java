@@ -8,9 +8,9 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import com.entity.Entity;
-
 import org.springframework.transaction.annotation.Transactional;
+
+import com.dao.model.entity.Entity;
 
 
 public class JpaDao<T extends Entity, I> implements Dao<T, I>
