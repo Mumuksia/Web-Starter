@@ -3,10 +3,11 @@
  */
 package com.service;
 
-import com.service.model.BlogPost;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.service.model.BlogPost;
 
 @Service
 public interface BlogPostService {
@@ -18,5 +19,7 @@ public interface BlogPostService {
 	BlogPost findById(Long id);
 
 	void delete(Long id);
+
+	BlogPost create(BlogPost post);
 
 }

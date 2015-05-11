@@ -38,8 +38,8 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Override
     @Transactional
     public BlogPost save(final BlogPost post) {
-        NewsEntry entry = newsEntryDao.save(new NewsEntry(post));
-		Category category = categoryService.updateCategory(post.getCategory());
+		Category category = categoryService.updateCategory(post.getCategoryName());
+		NewsEntry entry = newsEntryDao.save(new NewsEntry(post));
         return new BlogPost.BlogPostBuilder().buildFromEntity(entry).build();
     }
 
@@ -54,6 +54,12 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Transactional
     public void delete(final Long id) {
         newsEntryDao.delete(id);
+    }
+
+    @Override
+    public BlogPost create(final BlogPost post) {
+        NewsEntry entry = newsEntryDao.save(new NewsEntry(post));
+        return null;
     }
 
     public void setNewsEntryDao(final NewsEntryDao newsEntryDao) {

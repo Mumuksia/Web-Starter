@@ -4,6 +4,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,19 @@ public class CategoryServiceImpl implements CategoryService {
 	private  BlogPostService blogPostService;
 
 	@Override
-	public Category updateCategory(final Category category) {
-		NewsCategory newsCategory = newsCategoryDao.save(new NewsCategory(category));
+	public Category updateCategory(final String categoryName) {
+		List<Category> categories = findAllCategories();
+		Optional<Category> optional = categories.stream().filter(p -> p.getName().equals(categoryName)).findAny();
+		if (optional.isPresent()){
+			return optional.get();
+		}
+		NewsCategory newsCategory = newsCategoryDao.createCategory(categoryName);
 		return new Category.CategoryBuilder().buildFromEntity(newsCategory).build();
+	}
+
+	@Override
+	public Category updateCategory(final Category category) {
+		return updateCategory(category.getName());
 	}
 
 	@Override

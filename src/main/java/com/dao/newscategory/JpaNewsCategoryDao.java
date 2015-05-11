@@ -12,4 +12,10 @@ public class JpaNewsCategoryDao extends JpaDao<NewsCategory, Long> implements Ne
 		super(NewsCategory.class);
 	}
 
+	@Override
+	public NewsCategory createCategory(final String categoryName) {
+		NewsCategory newsCategory = new NewsCategory();
+		newsCategory.setName(categoryName);
+		return save(newsCategory);
+	}
 }

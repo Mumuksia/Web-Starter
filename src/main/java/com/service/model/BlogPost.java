@@ -19,7 +19,7 @@ public class BlogPost implements Serializable{
 	private String content;
 	private String title;
 	private Category category;
-	private String categoriesString;
+	private String categoryName;
 
 	@JsonView(JsonViews.Admin.class)
 	public Long getId() {
@@ -46,7 +46,7 @@ public class BlogPost implements Serializable{
 	}
 
 	@JsonView(JsonViews.User.class)
-	public String getCategoriesString(){
+	public String getCategoryName(){
 		return category.getName();
 	}
 

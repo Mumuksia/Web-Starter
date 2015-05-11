@@ -8,4 +8,5 @@ import com.entity.NewsCategory;
 @Transactional
 public interface NewsCategoryDao  extends Dao<NewsCategory, Long> {
 
+	NewsCategory createCategory(final String categoryName);
 }

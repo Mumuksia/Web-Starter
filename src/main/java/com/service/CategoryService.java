@@ -13,6 +13,8 @@ import com.service.model.Category;
 @Service
 public interface CategoryService {
 
+	Category updateCategory(final String categoryName);
+
 	Category updateCategory(final Category category);
 
 	void deleteCategory(final long categoryId);
