@@ -5,8 +5,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 	<persistence-unit name="examplePU">
-		<class>com.entity.NewsEntry</class>
-		<class>com.entity.User</class>
-		<class>com.entity.NewsCategory</class>
+		<class>com.dao.model.entity.NewsEntry</class>
+		<class>com.dao.model.entity.User</class>
+		<class>com.dao.model.entity.NewsCategory</class>
 	</persistence-unit>
 </persistence>

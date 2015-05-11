@@ -1,7 +1,7 @@
 /**
  * Copyright Flexpay AB
  */
-package com.entity;
+package com.dao.model.entity;
 
 import java.util.Set;
 
