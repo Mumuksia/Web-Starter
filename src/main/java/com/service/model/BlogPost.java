@@ -18,7 +18,7 @@ public class BlogPost implements Serializable{
 	private Date date;
 	private String content;
 	private String title;
-	private Category categories;
+	private Category category;
 	private String categoriesString;
 
 	@JsonView(JsonViews.Admin.class)
@@ -41,13 +41,13 @@ public class BlogPost implements Serializable{
 		return title;
 	}
 
-	public Category getCategories() {
-		return categories;
+	public Category getCategory() {
+		return category;
 	}
 
 	@JsonView(JsonViews.User.class)
 	public String getCategoriesString(){
-		return categories.getName();
+		return category.getName();
 	}
 
 	public BlogPost() {
@@ -58,7 +58,7 @@ public class BlogPost implements Serializable{
 		this.date = blogPostBuilder.date;
 		this.content = blogPostBuilder.content;
 		this.title = blogPostBuilder.title;
-		this.categories = blogPostBuilder.categories;
+		this.category = blogPostBuilder.categories;
 	}
 
 	public static class BlogPostBuilder {
@@ -90,7 +90,7 @@ public class BlogPost implements Serializable{
 			this.date = newsEntry.getDate();
 			this.content = newsEntry.getContent();
 			this.title = newsEntry.getTitle();
-			this.categories = getCategory(newsEntry.getCategories());
+			this.categories = getCategory(newsEntry.getNewsCategory());
 			return this;
 		}
 

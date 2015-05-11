@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.service.model.BlogPost;
 import com.service.model.Category;
 
 @Service
@@ -19,5 +20,7 @@ public interface CategoryService {
 	List<Category> findAllCategories();
 
 	Category getCategory(final long categoryId);
+
+	List<BlogPost> getPostsByCategory(final Category category);
 
 }

@@ -39,7 +39,7 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Transactional
     public BlogPost save(final BlogPost post) {
         NewsEntry entry = newsEntryDao.save(new NewsEntry(post));
-		Category category = categoryService.updateCategory(post.getCategories());
+		Category category = categoryService.updateCategory(post.getCategory());
         return new BlogPost.BlogPostBuilder().buildFromEntity(entry).build();
     }
 

@@ -32,7 +32,7 @@ public class NewsEntry implements Entity
 	private String title;
 
 	@ManyToOne(targetEntity = NewsCategory.class, fetch = FetchType.LAZY)
-	private NewsCategory categories;
+	private NewsCategory newsCategory;
 
 
 	public NewsEntry()
@@ -82,12 +82,12 @@ public class NewsEntry implements Entity
 		this.title = title;
 	}
 
-	public NewsCategory getCategories() {
-		return categories;
+	public NewsCategory getNewsCategory() {
+		return newsCategory;
 	}
 
-	public void setCategories(final NewsCategory categories) {
-		this.categories = categories;
+	public void setNewsCategory(final NewsCategory categories) {
+		this.newsCategory = categories;
 	}
 
 	@Override
@@ -101,6 +101,6 @@ public class NewsEntry implements Entity
 		this.content = blogPost.getContent();
 		this.title = blogPost.getTitle();
 		this.id = blogPost.getId();
-		this.categories = new NewsCategory(blogPost.getCategories());
+		this.newsCategory = new NewsCategory(blogPost.getCategory());
 	}
 }
