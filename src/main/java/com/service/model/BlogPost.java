@@ -54,6 +54,10 @@ public class BlogPost implements Serializable{
 		return categoryName;
 	}
 
+	public void setCategory(final Category category) {
+		this.category = category;
+	}
+
 	public BlogPost() {
 	}
 
