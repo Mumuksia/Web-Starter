@@ -84,8 +84,8 @@ public class BlogPost implements Serializable{
 			return this;
 		}
 
-        public BlogPostBuilder buildCategories(Category categories){
-			this.categories = categories;
+        public BlogPostBuilder buildCategory(Category category){
+			this.categories = category;
 			return this;
 		}
 

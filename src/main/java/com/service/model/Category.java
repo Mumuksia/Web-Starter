@@ -43,6 +43,12 @@ public class Category implements Serializable{
 			return this;
 		}
 
+		public CategoryBuilder buildNameAndId(final String name, final Long id){
+			this.id = id;
+			this.name = name;
+			return this;
+		}
+
 		public Category build(){
 			return new Category(this);
 		}

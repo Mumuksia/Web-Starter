@@ -22,4 +22,6 @@ public interface BlogPostService {
 
 	BlogPost create(BlogPost post);
 
+	List<BlogPost> getPostsByCategory(String categoryName);
+
 }

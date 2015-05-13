@@ -24,7 +24,6 @@ public class BlogPostServiceImpl implements BlogPostService {
 
     @Autowired
     private NewsEntryDao newsEntryDao;
-
 	@Autowired
 	private CategoryService categoryService;
 
@@ -40,7 +39,6 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Transactional
     public BlogPost save(final BlogPost post) {
 		Category category = categoryService.updateCategory(post.getCategoryName());
-
 		NewsEntry entry = new NewsEntry(post);
 		entry.setNewsCategory(new NewsCategory(category));
 		newsEntryDao.save(entry);
@@ -61,12 +59,28 @@ public class BlogPostServiceImpl implements BlogPostService {
     }
 
     @Override
+	@Transactional
     public BlogPost create(final BlogPost post) {
-        NewsEntry entry = newsEntryDao.save(new NewsEntry(post));
-        return null;
+		final String categoryName = post.getCategoryName();
+		Category category = categoryService.updateCategory(categoryName);
+		NewsEntry entry = new NewsEntry(post);
+		entry.setNewsCategory(new NewsCategory(category));
+        return new BlogPost.BlogPostBuilder().buildFromEntity(newsEntryDao.save(entry)).build();
+
     }
 
-    public void setNewsEntryDao(final NewsEntryDao newsEntryDao) {
+	@Override
+	@Transactional
+	public List<BlogPost> getPostsByCategory(final String categoryName) {
+		List<BlogPost> blogPosts = getAll();
+		return blogPosts.stream().filter(p->p.getCategory().getName().equals(categoryName)).collect(Collectors.toList());
+	}
+
+	public void setNewsEntryDao(final NewsEntryDao newsEntryDao) {
         this.newsEntryDao = newsEntryDao;
+    }
+
+    public void setCategoryService(final CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 }

@@ -55,6 +55,11 @@ public class NewsCategory implements Entity {
 		this.id = category.getId();
 	}
 
+	public NewsCategory(final String name, final Set<NewsEntry> newsEntries) {
+		this.name = name;
+		this.newsEntries = newsEntries;
+	}
+
 	public NewsCategory() {
 	}
 }

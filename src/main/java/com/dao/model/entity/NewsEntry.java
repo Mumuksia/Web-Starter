@@ -86,8 +86,8 @@ public class NewsEntry implements Entity
 		return newsCategory;
 	}
 
-	public void setNewsCategory(final NewsCategory categories) {
-		this.newsCategory = categories;
+	public void setNewsCategory(final NewsCategory category) {
+		this.newsCategory = category;
 	}
 
 	@Override
