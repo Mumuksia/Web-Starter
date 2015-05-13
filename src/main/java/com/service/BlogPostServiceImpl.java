@@ -31,8 +31,7 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Transactional
     public List<BlogPost> getAll() {
         List<NewsEntry> newsEntries = newsEntryDao.findAll();
-        List<BlogPost> posts = newsEntries.stream().map(p->new BlogPost.BlogPostBuilder().buildFromEntity(p).build()).collect(Collectors.toList());
-        return posts;
+		return newsEntries.stream().map(p->new BlogPost.BlogPostBuilder().buildFromEntity(p).build()).collect(Collectors.toList());
     }
 
     @Override

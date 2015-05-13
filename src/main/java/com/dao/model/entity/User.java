@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -31,7 +32,7 @@ public class User implements Entity, UserDetails
 	private String password;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	private Set<String> roles = new HashSet<String>();
+	private Set<String> roles = new HashSet<>();
 
 
 	protected User()
@@ -111,10 +112,7 @@ public class User implements Entity, UserDetails
 			return Collections.emptyList();
 		}
 
-		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		for (String role : roles) {
-			authorities.add(new SimpleGrantedAuthority(role));
-		}
+		Set<GrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
 
 		return authorities;
 	}

@@ -11,11 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
-import com.rest.TokenUtils;
-import com.service.BlogPostService;
-import com.transfer.TokenTransfer;
-import com.transfer.UserTransfer;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +21,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+
+import com.rest.TokenUtils;
+import com.transfer.TokenTransfer;
+import com.transfer.UserTransfer;
 
 
 @Component
@@ -55,7 +54,7 @@ public class UserResource
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Object principal = authentication.getPrincipal();
-		if (principal instanceof String && ((String) principal).equals("anonymousUser")) {
+		if (principal instanceof String && principal.equals("anonymousUser")) {
 			throw new WebApplicationException(401);
 		}
 		UserDetails userDetails = (UserDetails) principal;
@@ -95,7 +94,7 @@ public class UserResource
 
 	private Map<String, Boolean> createRoleMap(UserDetails userDetails)
 	{
-		Map<String, Boolean> roles = new HashMap<String, Boolean>();
+		Map<String, Boolean> roles = new HashMap<>();
 		for (GrantedAuthority authority : userDetails.getAuthorities()) {
 			roles.put(authority.getAuthority(), Boolean.TRUE);
 		}

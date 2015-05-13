@@ -16,8 +16,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.slf4j.Logger;
@@ -47,7 +45,7 @@ public class CategoryResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String list() throws JsonGenerationException, JsonMappingException, IOException
+	public String list() throws IOException
 	{
 		this.logger.info("listCategories()");
 

@@ -54,7 +54,6 @@ public class DataBaseInitializer
         this.userDao.save(adminUser2);
 
 		NewsCategory newsCategory = createNewsCategory("Category Name");
-		NewsCategory newsCategory2 = createNewsCategory("Category Name2");
 
 		createNewsEntry(newsCategory);
 	}
