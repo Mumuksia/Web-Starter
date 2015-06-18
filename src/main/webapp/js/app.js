@@ -124,9 +124,9 @@ function IndexController($scope, NewsService, CategoryService) {
 };
 
 
-function EditController($scope, $routeParams, $location, NewsService) {
+function EditController($scope, $routeParams, $location, PostService) {
 
-	$scope.newsEntry = NewsService.get({id: $routeParams.id});
+	$scope.newsEntry = PostService.get({id: $routeParams.id});
 	
 	$scope.save = function() {
 		$scope.newsEntry.$save(function() {
@@ -136,9 +136,9 @@ function EditController($scope, $routeParams, $location, NewsService) {
 };
 
 
-function CreateController($scope, $location, NewsService) {
+function CreateController($scope, $location, PostService) {
 	
-	$scope.newsEntry = new NewsService();
+	$scope.newsEntry = new PostService();
 	
 	$scope.save = function() {
 		$scope.newsEntry.$save(function() {
@@ -185,9 +185,14 @@ services.factory('UserService', function($resource) {
 
 services.factory('NewsService', function($resource) {
 	
-	return $resource('rest/posts/:id', {id: '@id'});
+	return $resource('rest/entries/:name', {name: '@name'});
 });
 
 services.factory('CategoryService', function($resource){
 	return $resource('rest/categories/:id', {id: '@id'})
+});
+
+services.factory('PostService', function($resource) {
+
+	return $resource('rest/post/:id', {id: '@id'});
 });

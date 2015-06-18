@@ -32,7 +32,9 @@
         </div>
         <div class="col-xs-3">
             <div ng-repeat="category in categories" class="left">
-                <p>{{category.name}}</p>
+                <a href="#!/entries/{{category.name}}" class="btn btn-xs btn-default" ng-show="hasRole('admin')">
+                    <p>{{category.name}}</p>
+                </a>
             </div>
         </div>
     </div>
